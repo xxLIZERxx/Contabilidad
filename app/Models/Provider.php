@@ -5,10 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Provider extends Model
 {
-    protected $fillable = ['name', 'lastname', 'nit', 'address', 'phone', 'email'];
-    
+    use HasFactory;
+
+    /**
+     * Los atributos que son asignables.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'nit',
+        'address',
+        'phone',
+        'email',
+    ];
+
     // Relaciones
     public function invoices() {
         return $this->hasMany(Invoice::class);
@@ -17,4 +30,4 @@ class Client extends Model
     public function contracts() {
         return $this->hasMany(Contract::class);
     }
-} 
+}

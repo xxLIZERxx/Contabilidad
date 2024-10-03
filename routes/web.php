@@ -5,6 +5,8 @@ use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,3 +18,8 @@ Route::post('/login', [LoginController::class, 'login'])->name('login')->middlew
 Route::post('/register', [LoginController::class, 'register'])->name('register')->middleware(middleware: AuthMiddleware::class);
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(middleware: AuthMiddleware::class);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout')->middleware(middleware: AuthMiddleware::class);
+Route::resource('clients', ClientController::class)->middleware(AuthMiddleware::class);
+Route::resource('users', UserController::class)->middleware(AuthMiddleware::class);
+
+Route::get('/clients', [ClientController::class, 'index'])->name('clients.index')->middleware(middleware: AuthMiddleware::class);
+Route::get('/users', [UserController::class, 'index'])->name('user.index')->middleware(middleware: AuthMiddleware::class);

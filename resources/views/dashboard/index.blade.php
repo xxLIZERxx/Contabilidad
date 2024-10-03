@@ -2,8 +2,18 @@
 @section('title', 'Dashboard')
 
 @section('content')
+
 <div class="container-fluid px-4">
     <h1 class="mt-4">Dashboard</h1>
+    
+    <div class="d-flex justify-content-end mb-4">
+        <a href="{{ route('logout') }}" class="btn btn-danger">Salir</a>
+    </div>
+
+    <div class="d-flex justify-content-end mb-4">
+        <a href="{{ route('clients.create') }}" class="btn btn-primary">Crear Cliente</a>
+    </div>
+    
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item active">Dashboard</li>
     </ol>
@@ -14,7 +24,7 @@
             <div class="card bg-primary text-white mb-4">
                 <div class="card-body">Total Usuarios: {{ $totalUsers }}</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">Ver Usuarios</a>
+                    <a class="small text-white stretched-link" href="{{ route('users.store') }}">Ver Usuarios</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -23,7 +33,7 @@
             <div class="card bg-success text-white mb-4">
                 <div class="card-body">Total Clientes: {{ $totalClients }}</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">Ver Clientes</a>
+                    <a class="small text-white stretched-link" href="{{ route('clients.store') }}">Ver Clientes</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
