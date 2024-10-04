@@ -1,16 +1,15 @@
-{{-- resources/views/clients/index.blade.php --}}
+{{-- resources/views/providers/index.blade.php --}}
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
-    <h1>Clientes</h1>
-    <a href="{{ route('clients.create') }}" class="btn btn-primary mb-3">Añadir Cliente</a>
+    <h1>Proveedores</h1>
+    <a href="{{ route('providers.create') }}" class="btn btn-primary mb-3">Añadir Proveedor</a>
     
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Apellido</th>
                 <th>NIT</th>
                 <th>Dirección</th>
                 <th>Teléfono</th>
@@ -19,18 +18,17 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($clients as $client)
+            @foreach($providers as $provider)
             <tr>
-                <td>{{ $client->name }}</td>
-                <td>{{ $client->lastname }}</td>
-                <td>{{ $client->nit }}</td>
-                <td>{{ $client->address }}</td>
-                <td>{{ $client->phone }}</td>
-                <td>{{ $client->email }}</td>
+                <td>{{ $provider->name }}</td>
+                <td>{{ $provider->nit }}</td>
+                <td>{{ $provider->address }}</td>
+                <td>{{ $provider->phone }}</td>
+                <td>{{ $provider->email }}</td>
                 <td>
-                    <a href="{{ route('clients.show', $client->id) }}" class="btn btn-info">Ver</a>
-                    <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-warning">Editar</a>
-                    <form action="{{ route('clients.destroy', $client->id) }}" method="POST" style="display:inline;">
+                    <a href="{{ route('providers.show', $provider->id) }}" class="btn btn-info">Ver</a>
+                    <a href="{{ route('providers.edit', $provider->id) }}" class="btn btn-warning">Editar</a>
+                    <form action="{{ route('providers.destroy', $provider->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Eliminar</button>

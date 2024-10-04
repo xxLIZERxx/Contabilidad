@@ -1,19 +1,16 @@
-{{-- resources/views/clients/create.blade.php --}}
+{{-- resources/views/providers/create.blade.php --}}
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
-    <h1>Añadir Cliente</h1>
+    <h1>Añadir Proveedor</h1>
 
-    <form action="{{ route('clients.store') }}" method="POST">
+    <form action="{{ route('providers.store') }}" method="POST">
         @csrf
         <div class="form-group">
             <label for="name">Nombre</label>
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
-        <div class="form-group">
-            <label for="lastname">Apellido</label>
-            <input type="text" class="form-control" id="lastname" name="lastname" required>
         <div class="form-group">
             <label for="nit">NIT</label>
             <input type="text" class="form-control" id="nit" name="nit" required>

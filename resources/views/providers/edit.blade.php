@@ -1,35 +1,32 @@
-{{-- resources/views/clients/edit.blade.php --}}
+{{-- resources/views/providers/edit.blade.php --}}
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
-    <h1>Editar Cliente</h1>
+    <h1>Editar Proveedor</h1>
 
-    <form action="{{ route('clients.update', $client->id) }}" method="POST">
+    <form action="{{ route('providers.update', $provider->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group">
             <label for="name">Nombre</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ $client->name }}" required>
+            <input type="text" class="form-control" id="name" name="name" value="{{ $provider->name }}" required>
         </div>
         <div class="form-group">
-            <label for="lastname">Apellido</label>
-            <input type="text" class="form-control" id="lastname" name="lastname" value="{{ $client->lastname }}" required>
-        <div class="form-group">
             <label for="nit">NIT</label>
-            <input type="text" class="form-control" id="nit" name="nit" value="{{ $client->nit }}" required>
+            <input type="text" class="form-control" id="nit" name="nit" value="{{ $provider->nit }}" required>
         </div>
         <div class="form-group">
             <label for="address">Dirección</label>
-            <input type="text" class="form-control" id="address" name="address" value="{{ $client->address }}">
+            <input type="text" class="form-control" id="address" name="address" value="{{ $provider->address }}">
         </div>
         <div class="form-group">
             <label for="phone">Teléfono</label>
-            <input type="text" class="form-control" id="phone" name="phone" value="{{ $client->phone }}">
+            <input type="text" class="form-control" id="phone" name="phone" value="{{ $provider->phone }}">
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ $client->email }}">
+            <input type="email" class="form-control" id="email" name="email" value="{{ $provider->email }}">
         </div>
 
         <button type="submit" class="btn btn-success">Actualizar</button>

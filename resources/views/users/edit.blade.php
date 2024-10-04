@@ -3,36 +3,23 @@
 
 @section('content')
 <div class="container">
-    <h1>Editar Cliente</h1>
+    <h1>Editar Rol de Usuario</h1>
 
-    <form action="{{ route('users.update', $client->id) }}" method="POST">
+    <form action="{{ route('users.update', $user->id) }}" method="POST">
         @csrf
         @method('PUT')
+        
         <div class="form-group">
-            <label for="name">Nombre</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ $client->name }}" required>
-        </div>
-        <div class="form-group">
-            <label for="lastname">Apellido</label>
-            <input type="text" class="form-control" id="lastname" name="lastname" value="{{ $client->lastname }}" required>
-        <div class="form-group">
-            <label for="nit">NIT</label>
-            <input type="text" class="form-control" id="nit" name="nit" value="{{ $client->nit }}" required>
-        </div>
-        <div class="form-group">
-            <label for="address">Dirección</label>
-            <input type="text" class="form-control" id="address" name="address" value="{{ $client->address }}">
-        </div>
-        <div class="form-group">
-            <label for="phone">Teléfono</label>
-            <input type="text" class="form-control" id="phone" name="phone" value="{{ $client->phone }}">
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ $client->email }}">
+            <label for="role">Rol</label>
+            <select class="form-control" id="role" name="role" required>
+                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                <option value="contador" {{ $user->role == 'contador' ? 'selected' : '' }}>Contador</option>
+                <option value="cliente" {{ $user->role == 'cliente' ? 'selected' : '' }}>Cliente</option>
+                <!-- Agrega más roles según tus necesidades -->
+            </select>
         </div>
 
-        <button type="submit" class="btn btn-success">Actualizar</button>
+        <button type="submit" class="btn btn-success">Actualizar Rol</button>
     </form>
 </div>
 @endsection
