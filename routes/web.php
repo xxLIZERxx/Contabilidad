@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +71,23 @@ Route::middleware('auth')->group(function () {
     | Route::middleware([RoleMiddleware::class . ':admin'])->resource('providers', ProviderController::class);
     */
 
-    Route::resource('providers', ProviderController::class);
+    Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+        Route::resource('providers', ProviderController::class);
+    });
+
+    Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+        Route::resource('products', ProductController::class);
+    });
+
+    Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+        Route::resource('categories', CategoryController::class);
+    });
+
+
+
+    //Route::resource('providers', ProviderController::class);
+    //Route::resource('products', ProductController::class);
+
+    
 
 });

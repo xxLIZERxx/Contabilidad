@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\Contract;
+use App\Models\Provider;
+use App\Models\Product;
 
 class DashboardController extends Controller
 {
@@ -18,6 +20,8 @@ class DashboardController extends Controller
         // Obtener estadísticas básicas para el dashboard
         $totalUsers = User::count(); // Total de usuarios
         $totalClients = Client::count(); // Total de clientes
+        $totalProviders = Provider::count(); // Total de proveedores
+        $totalProducts = Product::count(); // Total de productos
         $totalInvoices = Invoice::count(); // Total de facturas
         $totalContracts = Contract::count(); // Total de contratos
 
@@ -25,6 +29,8 @@ class DashboardController extends Controller
         return view('dashboard.index', [
             'totalUsers' => $totalUsers,
             'totalClients' => $totalClients,
+            'totalProviders' => $totalProviders,
+            'totalProducts' => $totalProducts,
             'totalInvoices' => $totalInvoices,
             'totalContracts' => $totalContracts,
         ]);
