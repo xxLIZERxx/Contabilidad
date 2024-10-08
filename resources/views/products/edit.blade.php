@@ -12,8 +12,15 @@
             <input type="text" class="form-control" id="name" name="name" value="{{ $product->name }}" required>
         </div>
         <div class="form-group">
-            <label for="category">Categoría</label>
-            <input type="text" class="form-control" id="category" name="category" value="{{ $product->category }}" required>
+            <label for="category_id">Categoría</label>
+            <select class="form-control" id="category_id" name="category_id" required>
+                <option value="">Seleccione una categoría</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="price">Precio</label>
@@ -26,5 +33,6 @@
 
         <button type="submit" class="btn btn-success">Actualizar</button>
     </form>
+    <a href="{{ route('dashboard') }}" class="btn btn-secondary mt-3">Inicio</a>
 </div>
 @endsection

@@ -44,13 +44,19 @@ class UserController extends Controller
     }
 
     // Actualizar solo el rol de un usuario
-    public function update(Request $request, User $user) {
+    public function update(Request $request, User $user)
+    {
         $validated = $request->validate([
             'role' => 'required|string|in:admin,contador,cliente',
+            'status' => 'required|boolean', // Validar el campo status
         ]);
-
-        $user->update(['role' => $validated['role']]);
-
-        return redirect()->route('users.index')->with('success', 'Rol actualizado exitosamente.');
+    
+        $user->update([
+            'role' => $validated['role'],
+            'status' => $validated['status'], // Actualizar el estado
+        ]);
+    
+        return redirect()->route('users.index')->with('success', 'Rol y estado actualizados exitosamente.');
     }
+    
 }

@@ -24,6 +24,8 @@
                 <td>
                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Editar</a>
                 </td>
+                <td>{{ $user->status ? 'Activo' : 'Inactivo' }}</td>
+
             </tr>
             @endforeach
         </tbody>

@@ -12,9 +12,10 @@
         <div class="card-body">
             <p><strong>Nombre:</strong> {{ $user->name }}</p>
             <p><strong>Email:</strong> {{ $user->email }}</p>
+            <p><strong>Estado:</strong> {{ $user->status }}</p>
         </div>
     </div>
 
-    <a href="{{ route('user.index') }}" class="btn btn-secondary mt-3">Volver</a>
+    <a href="{{ route('users.index') }}" class="btn btn-secondary mt-3">Volver</a>
 </div>
 @endsection

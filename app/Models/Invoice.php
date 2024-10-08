@@ -7,22 +7,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
-    protected $fillable = ['invoice_number', 'client_id', 'provider_id', 'user_id', 'total', 'tax', 'invoice_type', 'status'];
-    
-    // Relaciones
-    public function client() {
+    use HasFactory;
+
+    protected $fillable = [
+        'client_id',
+        'provider_id',
+        'user_id',
+        'invoice_number',
+        'total',
+        'invoice_type',
+        'status',
+        'payment_method'
+    ];
+
+    public function details()
+    {
+        return $this->hasMany(InvoiceDetail::class, 'invoice_id');
+    }
+
+    public function client()
+    {
         return $this->belongsTo(Client::class);
     }
 
-    public function user() {
-        return $this->belongsTo(User::class);
+    public function provider()
+    {
+        return $this->belongsTo(Provider::class);
     }
-
-    public function details() {
-        return $this->hasMany(InvoiceDetail::class);
-    }
-
-    public function taxes() {
-        return $this->belongsToMany(Tax::class, 'invoice_taxes')->withPivot('tax_amount');
-    }
-} 
+}

@@ -18,6 +18,14 @@
                 <!-- Agrega más roles según tus necesidades -->
             </select>
         </div>
+        <div class="form-group">
+            <label for="status">Estado</label>
+            <select class="form-control" id="status" name="status" required>
+                <option value="1" {{ $user->status ? 'selected' : '' }}>Activo</option>
+                <option value="0" {{ !$user->status ? 'selected' : '' }}>Inactivo</option>
+            </select>
+        </div>
+        
 
         <button type="submit" class="btn btn-success">Actualizar Rol</button>
     </form>

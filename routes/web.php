@@ -4,16 +4,17 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InvoiceController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\RoleMiddleware;
 
 /*
-|--------------------------------------------------------------------------
+|---------------------------------------------------------------------------
 | Rutas públicas (sin autenticación)
-|--------------------------------------------------------------------------
+|---------------------------------------------------------------------------
 */
 
 // Página de bienvenida
@@ -21,9 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Páginas de autenticación (login y register)
-// Estas rutas deberían estar disponibles solo para usuarios no autenticados, 
-// por lo que debes verificar que el usuario no esté autenticado.
+// Rutas de autenticación para usuarios no autenticados (guest)
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'loginView'])->name('login');
     Route::get('/register', [LoginController::class, 'registerView'])->name('register');
@@ -32,13 +31,14 @@ Route::middleware('guest')->group(function () {
 });
 
 /*
-|--------------------------------------------------------------------------
+|---------------------------------------------------------------------------
 | Rutas protegidas (requieren autenticación)
-|--------------------------------------------------------------------------
+|---------------------------------------------------------------------------
 */
 
-// Agrupar todas las rutas que requieren que el usuario esté autenticado
+// Agrupar todas las rutas protegidas que requieren que el usuario esté autenticado
 Route::middleware('auth')->group(function () {
+
     // Ruta para el dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -46,48 +46,39 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     /*
-    |--------------------------------------------------------------------------
-    | Rutas de clientes (solo accesibles por 'admin' o 'contador')
-    |--------------------------------------------------------------------------
+    |---------------------------------------------------------------------------
+    | Rutas protegidas por rol de usuario (admin o contador)
+    |---------------------------------------------------------------------------
     */
+
+    // Rutas de clientes (solo accesibles por admin o contador)
     Route::middleware([RoleMiddleware::class . ':admin,contador'])->group(function () {
         Route::resource('clients', ClientController::class);
     });
-    
+
+    // Rutas de facturas (solo accesibles por admin o contador)
+    Route::middleware([RoleMiddleware::class . ':admin,contador'])->group(function () {
+        Route::resource('invoices', InvoiceController::class);
+        Route::get('/invoices/{id}/pdf', [InvoiceController::class, 'downloadPDF'])->name('invoices.pdf');
+    });
+
     /*
-    |--------------------------------------------------------------------------
-    | Rutas de usuarios (solo accesibles por 'admin')
-    |--------------------------------------------------------------------------
+    |---------------------------------------------------------------------------
+    | Rutas exclusivas para admin
+    |---------------------------------------------------------------------------
     */
+
     Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
         Route::resource('users', UserController::class);
-    });
-
-    /*
-    |--------------------------------------------------------------------------
-    | Rutas adicionales según roles
-    |--------------------------------------------------------------------------
-    | Ejemplo de proveedores (solo admin puede gestionarlos en el futuro)
-    | Route::middleware([RoleMiddleware::class . ':admin'])->resource('providers', ProviderController::class);
-    */
-
-    Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
         Route::resource('providers', ProviderController::class);
-    });
-
-    Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
         Route::resource('products', ProductController::class);
-    });
-
-    Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
         Route::resource('categories', CategoryController::class);
     });
 
 
+    Route::get('/reporte-ventas', [InvoiceController::class, 'salesReport'])->name('sales.report');
+    Route::get('/reporte-ventas/pdf', [InvoiceController::class, 'salesReportPDF'])->name('sales.report.pdf');
+    Route::get('/sales-report/pdf', [InvoiceController::class, 'salesReportPDF'])->name('sales.report.pdf');
 
-    //Route::resource('providers', ProviderController::class);
-    //Route::resource('products', ProductController::class);
-
-    
 
 });

@@ -11,22 +11,15 @@ class InvoiceDetail extends Model
 
     protected $fillable = [
         'invoice_id',
-        'product_service_id',
+        'products_id',  // El campo en tu base de datos se llama `products_id`
         'description',
         'quantity',
         'unit_price',
-        'total',
+        'subtotal'
     ];
 
-    // Relación con la factura (un detalle pertenece a una factura)
-    public function invoice()
+    public function product()
     {
-        return $this->belongsTo(Invoice::class);
-    }
-
-    // Relación opcional con un producto o servicio (si se facturan productos o servicios específicos)
-    public function productService()
-    {
-        return $this->belongsTo(ProductService::class);
+        return $this->belongsTo(Product::class, 'products_id');
     }
 }

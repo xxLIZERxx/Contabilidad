@@ -54,6 +54,7 @@ class RoleMiddleware
             'clients.destroy',
             'users.create',
             'users.store',
+            'invoice.create',
             // Puedes agregar más rutas aquí si es necesario
         ];
 

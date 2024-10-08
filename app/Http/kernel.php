@@ -57,6 +57,10 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\RoleMiddleware::class,  // Middleware personalizado para verificar roles
         //'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,  // Middleware para usuarios no autenticados
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,  // Middleware para verificar emails
+
+        'web'=> [
+            \App\Http\Middleware\CheckUserStatus::class, // Agrega este middleware
+        ]
     ];
     
     

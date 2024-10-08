@@ -1,4 +1,6 @@
+
 @extends('layouts.app')
+
 @section('title', 'Dashboard')
 
 @section('content')
@@ -58,6 +60,16 @@
             </div>
         </div>
         
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-info text-white mb-4">
+                <div class="card-body">Facturación</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="{{ route('invoices.index') }}">Ver Facturas</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        
 
         <div class="col-xl-3 col-md-6">
             <div class="card bg-warning text-white mb-4">
@@ -78,6 +90,17 @@
             </div>
         </div>
     </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-secondary text-white mb-4">
+            <div class="card-body">Reporte de Ventas</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" href="{{ route('sales.report') }}">Ver Reporte</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    
 
     <!-- Aquí puedes agregar gráficos o más estadísticas -->
     <div class="row">
